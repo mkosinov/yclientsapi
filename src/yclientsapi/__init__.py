@@ -1,3 +1,3 @@
-from main import YClientsAPI
+from yclientsapi.main import YclientsAPI
 
-__all__ = ["YClientsAPI"]
+__all__ = ["YclientsAPI"]
