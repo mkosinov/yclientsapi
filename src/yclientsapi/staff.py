@@ -8,13 +8,20 @@ class Staff:
 
     _api_url_suffix = "/company/{company_id}/staff/{staff_id}"
 
-    def get_staff(self, staff_id="") -> StaffListResponse:
+    def __init__(self, api):
+        self.api = api
+
+    def get(self, staff_id: str | int = "") -> StaffListResponse:
         """Returns list of all staff or one certain staff.
+        Raises HTTPStatusError if status code is not OK.
         :param staff_id: id of staff. If not specified, returns list of all staff.
         :return: StaffListResponse
         """
         url = self._api_url_suffix.format(
-            company_id=self.config.company_id, staff_id=staff_id
+            company_id=self.api.config.company_id, staff_id=staff_id
         )
-        response = self.client.get(url, headers=self.headers.basic_with_user_token)
+        response = self.api.client.get(
+            url, headers=self.api.headers.basic_with_user_token
+        )
+        response.raise_for_status()
         return StaffListResponse(**orjson.loads(response.content))

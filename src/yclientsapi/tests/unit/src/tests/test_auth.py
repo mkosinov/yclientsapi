@@ -1,4 +1,7 @@
-def test_auth_user(init_lib):
-    user_token = init_lib.get_user_token("info@colourmountains.ru", "Oblomist!1")
+from yclientsapi.tests.unit.vars import user_login, user_password
+
+
+def test_auth_user(lib):
+    user_token = lib.auth.get_user_token(user_login, user_password)
     assert isinstance(user_token, str)
     assert len(user_token) > 0
