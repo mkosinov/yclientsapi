@@ -4,7 +4,6 @@ from typing import NoReturn
 class Headers:
     content_type = {"Content-Type": "application/json"}
     accept = {"Accept": "application/vnd.api.v2+json"}
-    #    host = {"Host": "api.yclients.com"}
 
     def __init__(self, partner_token: str, user_token: str = ""):
         self._partner_token = partner_token
