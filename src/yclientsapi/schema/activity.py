@@ -81,3 +81,9 @@ class ActivitySearchListResponse:
     success: bool
     data: list[Data]
     meta: dict[str, int] = field(default_factory=lambda: {"count": 0})
+
+
+@dataclass
+class ActivityDeleteResponse:
+    success: bool
+    meta: dict[str, str]
