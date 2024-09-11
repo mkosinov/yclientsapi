@@ -5,6 +5,7 @@ from yclientsapi.auth import Auth
 from yclientsapi.config import Config
 from yclientsapi.headers import Headers
 from yclientsapi.record import Record
+from yclientsapi.salary import Salary
 from yclientsapi.service import Service
 from yclientsapi.staff import Staff
 
@@ -26,9 +27,7 @@ class YclientsAPI:
         user_password: str = "",
     ):
         self.config: Config = Config(company_id)
-        self.client = httpx.Client(
-            base_url=self.config.api_base_url
-        )  # TODO: проверить оставить или нет
+        self.client = httpx.Client(base_url=self.config.api_base_url)
         self.headers = Headers(partner_token, user_token)
         if not user_token:
             self.headers._user_token = self.get_user_token(user_login, user_password)
@@ -40,6 +39,7 @@ class YclientsAPI:
         self.service = Service(self)
         self.activity = Activity(self)
         self.record = Record(self)
+        self.salary = Salary(self)
 
     def __enter__(self):
         return self

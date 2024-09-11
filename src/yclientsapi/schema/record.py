@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List, Optional
 
@@ -83,7 +83,7 @@ class Record:
     comer: Optional[dict]
     clients_count: int
     date: datetime
-    datetime: datetime
+    datetime_: datetime = field(metadata={"alias": "datetime"})
     create_date: datetime
     comment: str
     online: bool

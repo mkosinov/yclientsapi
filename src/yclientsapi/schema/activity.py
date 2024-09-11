@@ -70,13 +70,6 @@ class ActivityFiltersListData:
 
 
 @dataclass
-class ActivityFiltersListResponse:
-    success: bool
-    data: list[tuple[Service, list[ActivityFiltersListData]]]
-    meta: dict[str, int] = field(default_factory=lambda: {"count": 0})
-
-
-@dataclass
 class ActivitySearchListResponse:
     success: bool
     data: list[Data]

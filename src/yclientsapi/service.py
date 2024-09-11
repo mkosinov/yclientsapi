@@ -47,7 +47,7 @@ class ServiceCategory:
     def __init__(self, api):
         self.api = api
 
-    def get(
+    def list(
         self,
         category_id: str | int = "",
         staff_id: str | int = "",

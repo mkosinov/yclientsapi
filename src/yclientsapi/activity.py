@@ -85,42 +85,13 @@ class Activity:
         :param activity_id: id of activity. Required.
         :return: StaffListResponse
         """
-        api_url_suffix = "/activity/{company_id}/{activity_id}"
-        url = api_url_suffix.format(
+        url_suffix = "/activity/{company_id}/{activity_id}".format(
             company_id=self.api.config.company_id, activity_id=activity_id
         )
         response = self.api.client.get(
-            url, headers=self.api.headers.basic_with_user_token
+            url_suffix, headers=self.api.headers.basic_with_user_token
         )
         return ActivityResponse(**orjson.loads(response.content))
-
-    # TODO: похоже это не нужно
-    # def filters(
-    #     self,
-    #     service_ids: list[int] | list[str] | None = None,
-    #     staff_ids: list[int] | list[str] | None = None,
-    #     resource_ids: list[int] | list[str] | None = None,
-    # ) -> ActivityFiltersListResponse:
-    #     """Returns activity filtered by params.
-    #     :param service_ids: list of service ids. Optional.
-    #     :param staff_ids: list of staff ids. Optional.
-    #     :param resource_ids: list of resource ids. Optional.
-    #     :return: ActivityFiltersResponse
-    #     """
-    #     api_url_suffix = "/activity/{company_id}/filters/"
-    #     params = {}
-    #     if service_ids:
-    #         params["service_ids"] = service_ids
-    #     if staff_ids:
-    #         params["staff_ids"] = staff_ids
-    #     if resource_ids:
-    #         params["resource_ids"] = resource_ids
-    #     response = self.api.client.get(
-    #         api_url_suffix.format(company_id=self.api.config.company_id),
-    #         params=params,
-    #         headers=self.api.headers.basic_with_partner_token,
-    #     )
-    #     return ActivityFiltersListResponse(**orjson.loads(response.content))
 
     def search(
         self,

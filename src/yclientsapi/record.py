@@ -14,22 +14,22 @@ class Record:
     def __init__(self, api):
         self.api = api
 
-    def get(
+    def list(
         self,
-        page: str | int = "",
-        count: str | int = "",
-        staff_id: str | int = "",
-        client_id: str | int = "",
-        created_user_id: str | int = "",
-        start_date: str | date = "",
-        end_date: str | date = "",
-        creation_start_date: str | date = "",
-        creation_end_date: str | date = "",
-        changed_after: str | date = "",
-        changed_before: str | date = "",
-        include_consumables: bool | int = False,
-        include_finance_transactions: bool | int = False,
-        with_deleted: bool | int = False,
+        page: int | None = None,
+        count: int | None = None,
+        staff_id: int | None = None,
+        client_id: int | None = None,
+        created_user_id: int | None = None,
+        start_date: str | date | None = None,
+        end_date: str | date | None = None,
+        creation_start_date: str | date | None = None,
+        creation_end_date: str | date | None = None,
+        changed_after: str | date | None = None,
+        changed_before: str | date | None = None,
+        include_consumables: int | None = None,
+        include_finance_transactions: int | None = None,
+        with_deleted: bool | None = None,
     ) -> RecordListResponse:
         """Returns list of records matching search filters.
         :param page: page number
@@ -43,8 +43,8 @@ class Record:
         :param creation_end_date: record creation end date
         :param changed_after: record changed after date
         :param changed_before: record changed before date
-        :param include_consumables: include consumables in results (default: False)
-        :param include_finance_transactions: include finance transactions in results (default: False)
+        :param include_consumables: include consumables in results (default: 0)
+        :param include_finance_transactions: include finance transactions in results (default: 0)
         :param with_deleted: with deleted records in results (default: False)
         :return: RecordListResponse
         """
@@ -52,8 +52,7 @@ class Record:
         for arg, value in locals().items():
             if arg not in ("self", "params") and value:
                 params[arg] = value
-        api_url_suffix = "/records/{company_id}"
-        url = api_url_suffix.format(company_id=self.api.config.company_id)
+        url = "/records/{company_id}".format(company_id=self.api.config.company_id)
         response = self.api.client.get(
             url,
             params=params,
