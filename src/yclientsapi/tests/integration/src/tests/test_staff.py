@@ -1,5 +1,5 @@
 from yclientsapi.schema.staff import StaffListResponse
-from yclientsapi.tests.unit.vars import staff_id
+from yclientsapi.tests.integration.vars import staff_id
 
 
 def test_get_all_staff(lib):

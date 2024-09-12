@@ -4,8 +4,8 @@ import pytest
 
 from yclientsapi.main import YclientsAPI
 from yclientsapi.schema.activity import ActivityDeleteResponse, ActivityResponse
-from yclientsapi.tests.unit.src.test_data.real.activity import Parametrize
-from yclientsapi.tests.unit.vars import resource_id, service_id, staff_id
+from yclientsapi.tests.integration.src.test_data.activity import Parametrize
+from yclientsapi.tests.integration.vars import resource_id, service_id, staff_id
 
 
 @pytest.mark.service

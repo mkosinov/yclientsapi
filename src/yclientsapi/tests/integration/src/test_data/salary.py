@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from yclientsapi.tests.unit.vars import calculation_id, staff_id
+from yclientsapi.tests.integration.vars import calculation_id, staff_id
 
 
 class Parametrize:

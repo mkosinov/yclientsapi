@@ -1,4 +1,4 @@
-from yclientsapi.tests.unit.vars import user_login, user_password
+from yclientsapi.tests.integration.vars import user_login, user_password
 
 
 def test_auth_user(lib):

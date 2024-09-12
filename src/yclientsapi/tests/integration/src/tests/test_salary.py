@@ -6,7 +6,7 @@ from yclientsapi.schema.salary import (
     SalaryCalculationDetailResponse,
     SalaryCalculationListResponse,
 )
-from yclientsapi.tests.unit.src.test_data.real.salary import Parametrize
+from yclientsapi.tests.integration.src.test_data.salary import Parametrize
 
 
 @pytest.mark.service

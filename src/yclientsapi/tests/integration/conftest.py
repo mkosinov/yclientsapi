@@ -1,7 +1,7 @@
 import pytest
 
 from yclientsapi import YclientsAPI
-from yclientsapi.tests.unit.vars import (
+from yclientsapi.tests.integration.vars import (
     company_id,
     partner_token,
     user_login,

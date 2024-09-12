@@ -1,7 +1,7 @@
 import pytest
 
 from yclientsapi.schema.service import ServiceListResponse
-from yclientsapi.tests.unit.vars import service_category_id, service_id, staff_id
+from yclientsapi.tests.integration.vars import service_category_id, service_id, staff_id
 
 
 @pytest.mark.service
