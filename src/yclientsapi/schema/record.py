@@ -1,20 +1,28 @@
-from dataclasses import dataclass, field
+from dataclasses import field
 from datetime import datetime
-from typing import List, Optional
+
+from pydantic import ConfigDict
+from pydantic.dataclasses import dataclass
+
+from yclientsapi.config import Config
+
+config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
 
-@dataclass
+@dataclass(config=config)
 class RecordStaff:
     id: int
+    api_id: str | None
     name: str
     specialization: str
+    position: dict
     avatar: str
     avatar_big: str
     rating: int
     votes_count: int
 
 
-@dataclass
+@dataclass(config=config)
 class RecordService:
     id: int
     title: str
@@ -27,27 +35,25 @@ class RecordService:
     amount: int
 
 
-@dataclass
+@dataclass(config=config)
 class RecordClient:
     id: int
     name: str
     surname: str
     patronymic: str
     display_name: str
-    comment: str
     phone: str
     card: str
     email: str
     success_visits_count: int
     fail_visits_count: int
     discount: int
-    custom_fields: List[dict]
-    sex: int
-    birthday: datetime
-    client_tags: List[dict]
+    custom_fields: list[dict]
+    client_tags: list[dict]
+    is_new: bool
 
 
-@dataclass
+@dataclass(config=config)
 class RecordLabel:
     id: str
     color: str
@@ -55,32 +61,33 @@ class RecordLabel:
     font_color: str
 
 
-@dataclass
+@dataclass(config=config)
 class RecordDocument:
+    id: int
     type_id: int
     storage_id: int
     user_id: int
     company_id: int
     number: int
-    comment: str
+    comment: str | None
     date_created: datetime
     category_id: int
     visit_id: int
     record_id: int
     type_title: str
-    is_sale_bill_printed: bool
+    is_sale_bill_printed: bool | None
 
 
-@dataclass
+@dataclass(config=config)
 class Record:
     id: int
     company_id: int
     staff_id: int
-    services: List[RecordService]
-    goods_transactions: List[dict]
+    services: list[RecordService]
+    goods_transactions: list[dict]
     staff: RecordStaff
-    client: Optional[RecordClient]
-    comer: Optional[dict]
+    client: RecordClient | None
+    comer: dict | None
     clients_count: int
     date: datetime
     datetime_: datetime = field(metadata={"alias": "datetime"})
@@ -101,37 +108,40 @@ class Record:
     api_id: str
     from_url: str
     review_requested: int
-    visit_id: str
+    visit_id: int
     created_user_id: int
     deleted: bool
     paid_full: int
+    payment_status: int
     prepaid: bool
     prepaid_confirmed: bool
     last_change_date: datetime
     custom_color: str
     custom_font_color: str
-    record_labels: List[RecordLabel]
+    record_labels: list[RecordLabel]
     activity_id: int
-    custom_fields: List[dict]
-    documents: List[RecordDocument]
+    custom_fields: list[dict]
+    documents: list[RecordDocument]
     sms_remain_hours: int
     email_remain_hours: int
     bookform_id: int
     record_from: str
     is_mobile: int
+    is_update_blocked: bool
     is_sale_bill_printed: bool
-    consumables: List[dict]
-    finance_transactions: List[dict]
+    resource_instance_ids: list[int]
+    short_link: str
+    acceptance_free: str | None
 
 
-@dataclass
+@dataclass(config=config)
 class RecordListMeta:
     page: int
     total_count: int
 
 
-@dataclass
+@dataclass(config=config)
 class RecordListResponse:
     success: bool
-    data: List[Record]
+    data: list[Record]
     meta: RecordListMeta

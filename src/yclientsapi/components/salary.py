@@ -13,7 +13,7 @@ class Salary:
     """Methods for working with salary."""
 
     def __init__(self, api):
-        self.api = api
+        self.__api = api
 
     def list_calculations(
         self,
@@ -25,23 +25,25 @@ class Salary:
         Get list of salary calculations for the given staff in the given period.
 
         :param staff_id: ID of the staff.
-        :param date_from: date of start of the period (inclusive).String format: YYYY-MM-DD
-        :param date_to: date of end of the period (inclusive). String format: YYYY-MM-DD
-        :return: instance of SalaryCalculationListResponse
+        :param date_from: date of start of the period (inclusive). String format: YYYY-MM-DD.
+        :param date_to: date of end of the period (inclusive). String format: YYYY-MM-DD.
+        :return: SalaryCalculationListResponse
         """
-        url = (
-            "/company/{company_id}/salary/payroll/staff/{staff_id}/calculation/".format(
-                company_id=self.api.config.company_id, staff_id=staff_id
-            )
-        )
         params = {
             "date_from": date_from.isoformat()
             if isinstance(date_from, date)
             else date_from,
             "date_to": date_to.isoformat() if isinstance(date_to, date) else date_to,
         }
-        response = self.api.client.get(
-            url, params=params, headers=self.api.headers.basic_with_user_token
+        url_suffix = (
+            "/company/{company_id}/salary/payroll/staff/{staff_id}/calculation/"
+        )
+        response = self.__api._sender.send(
+            method="GET",
+            url_suffix=url_suffix,
+            url_params={"staff_id": staff_id},
+            headers=self.__api._headers.base_with_user_token,
+            params=params,
         )
         return SalaryCalculationListResponse(**orjson.loads(response.content))
 
@@ -53,15 +55,14 @@ class Salary:
 
         :param staff_id: ID of the staff.
         :param calculation_id: ID of the calculation.
-        :return: instance of SalaryCalculationDetailResponse
+        :return: SalaryCalculationDetailResponse
         """
-        url = "/company/{company_id}/salary/payroll/staff/{staff_id}/calculation/{calculation_id}".format(
-            company_id=self.api.config.company_id,
-            staff_id=staff_id,
-            calculation_id=calculation_id,
-        )
-        response = self.api.client.get(
-            url, headers=self.api.headers.basic_with_user_token
+        url_suffix = "/company/{company_id}/salary/payroll/staff/{staff_id}/calculation/{calculation_id}"
+        response = self.__api._sender.send(
+            method="GET",
+            url_suffix=url_suffix,
+            url_params={"staff_id": staff_id, "calculation_id": calculation_id},
+            headers=self.__api._headers.base_with_user_token,
         )
         return SalaryCalculationDetailResponse(**orjson.loads(response.content))
 
@@ -76,16 +77,18 @@ class Salary:
         :param date_to: date of end of the period (inclusive). String format: YYYY-MM-DD
         :return: instance of SalaryBalanceResponse
         """
-        url = "/company/{company_id}/salary/calculation/staff/{staff_id}/".format(
-            company_id=self.api.config.company_id, staff_id=staff_id
-        )
         params = {
             "date_from": date_from.isoformat()
             if isinstance(date_from, date)
             else date_from,
             "date_to": date_to.isoformat() if isinstance(date_to, date) else date_to,
         }
-        response = self.api.client.get(
-            url, params=params, headers=self.api.headers.basic_with_user_token
+        url_suffix = "/company/{company_id}/salary/calculation/staff/{staff_id}/"
+        response = self.__api._sender.send(
+            method="GET",
+            url_suffix=url_suffix,
+            url_params={"staff_id": staff_id},
+            headers=self.__api._headers.base_with_user_token,
+            params=params,
         )
         return SalaryBalanceResponse(**orjson.loads(response.content))

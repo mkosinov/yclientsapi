@@ -1,8 +1,12 @@
-from dataclasses import dataclass
-from typing import List, Optional
+from pydantic import ConfigDict
+from pydantic.dataclasses import dataclass
+
+from yclientsapi.config import Config
+
+config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
 
-@dataclass
+@dataclass(config=config)
 class Service:
     id: int
     title: str
@@ -15,20 +19,20 @@ class Service:
     amount: int
 
 
-@dataclass
+@dataclass(config=config)
 class Staff:
     id: int
-    api_id: Optional[str]
+    api_id: str | None
     name: str
     specialization: str
-    position: dict
+    position: dict  # TODO: add nested schema
     avatar: str
     avatar_big: str
     rating: int
     votes_count: int
 
 
-@dataclass
+@dataclass(config=config)
 class Client:
     id: int
     name: str
@@ -42,13 +46,13 @@ class Client:
     success_visits_count: int
     fail_visits_count: int
     discount: int
-    custom_fields: List[dict]
+    custom_fields: list[dict]  # TODO: add nested schema
     sex: int
     birthday: str
-    client_tags: List[dict]
+    client_tags: list[dict]  # TODO: add nested schema
 
 
-@dataclass
+@dataclass(config=config)
 class RecordLabel:
     id: int
     title: str
@@ -57,7 +61,7 @@ class RecordLabel:
     font_color: str
 
 
-@dataclass
+@dataclass(config=config)
 class Document:
     id: int
     type_id: int
@@ -74,16 +78,16 @@ class Document:
     is_sale_bill_printed: bool
 
 
-@dataclass
+@dataclass(config=config)
 class Data:
     id: int
     company_id: int
     staff_id: int
-    services: List[Service]
-    goods_transactions: List[dict]
+    services: list[Service]
+    goods_transactions: list[dict]  # TODO: add nested schema
     staff: Staff
-    client: Optional[Client]
-    comer: Optional[dict]
+    client: Client | None
+    comer: dict | None  # TODO: add nested schema
     clients_count: int
     date: str
     datetime: str
@@ -114,10 +118,10 @@ class Data:
     last_change_date: str
     custom_color: str
     custom_font_color: str
-    record_labels: List[RecordLabel]
+    record_labels: list[RecordLabel]
     activity_id: int
-    custom_fields: List[dict]
-    documents: List[Document]
+    custom_fields: list[dict]  # TODO: add nested schema
+    documents: list[Document]
     sms_remain_hours: int
     email_remain_hours: int
     bookform_id: int
@@ -126,7 +130,7 @@ class Data:
     short_link: str
 
 
-@dataclass
+@dataclass(config=config)
 class YclientsEvent:
     company_id: int
     resource: str

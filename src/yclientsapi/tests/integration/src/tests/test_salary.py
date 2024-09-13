@@ -1,12 +1,12 @@
 import pytest
 
-from yclientsapi.main import YclientsAPI
+from yclientsapi import YclientsAPI
 from yclientsapi.schema.salary import (
     SalaryBalanceResponse,
     SalaryCalculationDetailResponse,
     SalaryCalculationListResponse,
 )
-from yclientsapi.tests.unit.src.test_data.real.salary import Parametrize
+from yclientsapi.tests.integration.src.test_data.salary import Parametrize
 
 
 @pytest.mark.service

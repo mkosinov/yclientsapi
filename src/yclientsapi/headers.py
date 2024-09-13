@@ -30,17 +30,17 @@ class Headers:
         raise AttributeError
 
     @property
-    def basic_with_partner_token(self) -> dict[str, str]:
+    def base(self) -> dict[str, str]:
         return self.content_type | self.accept | self.authorization_partner
 
-    @basic_with_partner_token.setter
-    def basic_with_partner_token(self) -> NoReturn:
+    @base.setter
+    def base(self) -> NoReturn:
         raise AttributeError
 
     @property
-    def basic_with_user_token(self) -> dict[str, str]:
+    def base_with_user_token(self) -> dict[str, str]:
         return self.content_type | self.accept | self.authorization_partner_user
 
-    @basic_with_user_token.setter
-    def basic_with_user_token(self) -> NoReturn:
+    @base_with_user_token.setter
+    def base_with_user_token(self) -> NoReturn:
         raise AttributeError

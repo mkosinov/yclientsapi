@@ -1,8 +1,14 @@
-from dataclasses import dataclass
-from typing import List
+from dataclasses import field
+
+from pydantic import ConfigDict
+from pydantic.dataclasses import dataclass
+
+from yclientsapi.config import Config
+
+config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryCalculationData:
     id: int
     company_id: int
@@ -15,14 +21,14 @@ class SalaryCalculationData:
     comment: str
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryCalculationListResponse:
     success: bool
-    data: List[SalaryCalculationData]
     meta: dict
+    data: list[SalaryCalculationData] = field(default_factory=list)
 
 
-@dataclass
+@dataclass(config=config)
 class Paid:
     money_sum: str
     discount_sum: str
@@ -32,28 +38,28 @@ class Paid:
     deposit_sum: str
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryCalculationInfo:
     criteria_title: str
     param_title: str
     scheme_title: str
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryCalculation:
     type_slug: str
     value: float
     description: str
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryDiscrepancy:
     reason: str
     actual_sum: str
     difference_sum: str
 
 
-@dataclass
+@dataclass(config=config)
 class Currency:
     id: int
     iso: str
@@ -62,7 +68,12 @@ class Currency:
     is_symbol_after_amount: bool
 
 
-@dataclass
+@dataclass(config=config)
+class CurrencyShort:
+    symbol: str
+
+
+@dataclass(config=config)
 class SalaryCalculationDetailTarget:
     target_type_slug: str
     target_id: int
@@ -74,7 +85,7 @@ class SalaryCalculationDetailTarget:
     salary_calculation: SalaryCalculation
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryCalculationDetailItem:
     date: str
     time: str
@@ -86,11 +97,11 @@ class SalaryCalculationDetailItem:
     cost: str
     paid: Paid
     salary_calculation_info: SalaryCalculationInfo
-    targets: List[SalaryCalculationDetailTarget]
     salary_discrepancy: SalaryDiscrepancy
+    targets: list[SalaryCalculationDetailTarget] = field(default_factory=list)
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryCalculationDetailData:
     id: int
     company_id: int
@@ -101,32 +112,32 @@ class SalaryCalculationDetailData:
     date_from: str
     date_to: str
     comment: str
-    salary_items: List[SalaryCalculationDetailItem]
     currency: Currency
+    salary_items: list[SalaryCalculationDetailItem] = field(default_factory=list)
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryCalculationDetailResponse:
     success: bool
     data: SalaryCalculationDetailData
-    meta: List = None
+    meta: list = field(default_factory=list)
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryBalance:
     income: str
     expense: str
     balance: str
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryBalanceData:
     total_sum: SalaryBalance
-    currency: Currency
+    currency: CurrencyShort
 
 
-@dataclass
+@dataclass(config=config)
 class SalaryBalanceResponse:
     success: bool
     data: SalaryBalanceData
-    meta: List = None
+    meta: list = field(default_factory=list)

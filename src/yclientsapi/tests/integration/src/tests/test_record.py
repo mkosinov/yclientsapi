@@ -1,8 +1,8 @@
 import pytest
 
-from yclientsapi.main import YclientsAPI
+from yclientsapi import YclientsAPI
 from yclientsapi.schema.record import RecordListResponse
-from yclientsapi.tests.unit.src.test_data.real.record import Parametrize
+from yclientsapi.tests.integration.src.test_data.record import Parametrize
 
 
 @pytest.mark.parametrize(

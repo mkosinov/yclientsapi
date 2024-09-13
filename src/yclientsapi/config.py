@@ -1,8 +1,20 @@
+import os
+from enum import StrEnum
+
+
+class ExtraFieldsInResponse(StrEnum):
+    ALLOW = "allow"
+    FORBID = "forbid"
+    IGNORE = "ignore"
+
+
 class Config:
-    api_base_url = "https://api.yclients.com/api/v1"
+    api_base_url = os.getenv("YCLIENTS_API_BASE_URL", "https://api.yclients.com/api/v1")
+    extra_fields_in_response = os.getenv(
+        "EXTRA_FIELDS_IN_RESPONSE", ExtraFieldsInResponse.FORBID.value
+    )
 
-    def __init__(self, company_id: int):
+    def __init__(self, company_id: int | str, **kwargs):
         self.company_id = company_id
-
-    # def compose_url(self, api_version: str = "v1", *args: str) -> str:
-    #     return "/".join([self.api_base_url, api_version, *args])
+        for key, value in kwargs.items():
+            setattr(self, key, value)
