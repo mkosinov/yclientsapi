@@ -1,6 +1,6 @@
 import pytest
 
-from yclientsapi.main import YclientsAPI
+from yclientsapi import YclientsAPI
 from yclientsapi.schema.salary import (
     SalaryBalanceResponse,
     SalaryCalculationDetailResponse,

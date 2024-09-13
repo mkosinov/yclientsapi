@@ -2,6 +2,7 @@ from datetime import date
 
 import orjson
 
+from yclientsapi import YclientsAPI
 from yclientsapi.schema.record import RecordListResponse
 
 
@@ -12,7 +13,7 @@ class Record:
     """
 
     def __init__(self, api):
-        self.api = api
+        self.__api: YclientsAPI = api
 
     def list(
         self,
@@ -43,19 +44,21 @@ class Record:
         :param creation_end_date: record creation end date
         :param changed_after: record changed after date
         :param changed_before: record changed before date
-        :param include_consumables: include consumables in results (default: 0)
-        :param include_finance_transactions: include finance transactions in results (default: 0)
-        :param with_deleted: with deleted records in results (default: False)
+        :param include_consumables: include consumables in results
+        :param include_finance_transactions: include finance transactions in results
+        :param with_deleted: with deleted records in results
         :return: RecordListResponse
         """
         params = {}
         for arg, value in locals().items():
             if arg not in ("self", "params") and value:
                 params[arg] = value
-        url = "/records/{company_id}".format(company_id=self.api.config.company_id)
-        response = self.api.client.get(
-            url,
+        url_suffix = "/records/{company_id}"
+        response = self.__api._sender.send(
+            method="GET",
+            url_suffix=url_suffix,
+            url_params={},
+            headers=self.__api._headers.base_with_user_token,
             params=params,
-            headers=self.api.headers.basic_with_user_token,
         )
         return RecordListResponse(**orjson.loads(response.content))

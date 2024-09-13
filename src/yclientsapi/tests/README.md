@@ -7,6 +7,7 @@ No functional tests are made, as package functionality is only a wrapper to API 
 
 * pytest
 * httpx
+* pydantic
 
 Tests include only "get" method requests to the Yclients API using real account and real data.
 No create/update/delete methods are being tested as they will leave an undesirable footprint in real account and also require these methods to be added to the package.

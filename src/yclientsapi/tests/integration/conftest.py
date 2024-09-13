@@ -1,13 +1,9 @@
+from typing import Any, Generator
+
 import pytest
 
 from yclientsapi import YclientsAPI
-from yclientsapi.tests.integration.vars import (
-    company_id,
-    partner_token,
-    user_login,
-    user_password,
-    user_token,
-)
+from yclientsapi.tests.integration.vars import company_id, partner_token, user_token
 
 # @pytest.fixture(scope="session")
 # def get_httpx_client() -> httpx.Client:
@@ -18,11 +14,8 @@ from yclientsapi.tests.integration.vars import (
 
 
 @pytest.fixture(scope="session")
-def lib() -> YclientsAPI:
-    return YclientsAPI(
-        company_id=company_id,
-        partner_token=partner_token,
-        user_login=user_login,
-        user_password=user_password,
-        user_token=user_token,
-    )
+def lib() -> Generator[YclientsAPI, Any, None]:
+    with YclientsAPI(
+        company_id=company_id, partner_token=partner_token, user_token=user_token
+    ) as api:
+        yield api
