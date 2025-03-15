@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from yclientsapi.config import Config
 from yclientsapi.headers import Headers
-from yclientsapi.sender import AbstractSender, httpxSender
+from yclientsapi.sender import httpxSender
 
 __all__ = ["YclientsAPI"]
 

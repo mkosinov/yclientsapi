@@ -4,7 +4,7 @@ from typing import Any
 import httpx
 
 
-class AbstractSender(ABC):
+class AbstractHttpSender(ABC):
     def __init__(self, api, **kwargs):
         self._api = api
 
@@ -21,7 +21,7 @@ class AbstractSender(ABC):
         raise NotImplementedError
 
 
-class httpxSender(AbstractSender):
+class httpxSender(AbstractHttpSender):
     def create_session(self):
         self.session = httpx.Client(base_url=self._api._config.api_base_url)
 
