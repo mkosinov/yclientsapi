@@ -11,7 +11,7 @@ class ExtraFieldsInResponse(StrEnum):
 class Config:
     api_base_url = os.getenv("YCLIENTS_API_BASE_URL", "https://api.yclients.com/api/v1")
     extra_fields_in_response = os.getenv(
-        "EXTRA_FIELDS_IN_RESPONSE", ExtraFieldsInResponse.FORBID.value
+        "EXTRA_FIELDS_IN_RESPONSE", ExtraFieldsInResponse.IGNORE.value
     )
 
     def __init__(self, company_id: int | str, **kwargs):

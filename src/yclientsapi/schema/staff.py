@@ -7,6 +7,12 @@ config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
 
 @dataclass(config=config)
+class Price:
+    min: int
+    max: int
+
+
+@dataclass(config=config)
 class GridSetting:
     grid_first_timeslot: int
     grid_last_timeslot: int
@@ -63,7 +69,7 @@ class ServiceLink:
     api_id: str
     is_online: bool
     is_offline_records_allowed: bool
-    price: int | None
+    price: Price | None
 
 
 @dataclass(config=config)
