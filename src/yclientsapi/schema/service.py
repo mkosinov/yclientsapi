@@ -9,12 +9,18 @@ config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
 
 @dataclass(config=config)
+class Price:
+    min: int
+    max: int
+
+
+@dataclass(config=config)
 class ServiceStaffData:
     id: int
     seance_length: int
     technological_card_id: int
     image_url: str
-    price: int | None
+    price: Price | None
     name: str
 
 
