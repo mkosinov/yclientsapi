@@ -174,3 +174,4 @@ cython_debug/
 *.DS_Store
 tests/functional/docker-compose.dev.yml
 docker-compose.dev.yml
+.qodo
