@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from yclientsapi.components.storage import Storage
 from yclientsapi.config import Config
 from yclientsapi.headers import Headers
 from yclientsapi.sender import httpxSender
@@ -58,6 +59,7 @@ class YclientsAPI:
         self.activity = Activity(self)
         self.record = Record(self)
         self.salary = Salary(self)
+        self.storage = Storage(self)
 
     def __enter__(self):
         self._sender.create_session()
