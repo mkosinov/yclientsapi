@@ -84,7 +84,7 @@ class Label:
 
 
 @dataclass(config=config)
-class Data:
+class Activity:
     id: int
     company_id: int
     service_id: int
@@ -110,12 +110,12 @@ class Data:
 @dataclass(config=config)
 class ActivityResponse:
     success: bool
-    data: Data
+    data: Activity
     meta: list[dict] = field(default_factory=list)
 
 
 @dataclass(config=config)
 class ActivitySearchListResponse:
     success: bool
-    data: list[Data]
+    data: list[Activity]
     meta: dict[str, int] = field(default_factory=lambda: {"count": 0})

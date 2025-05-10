@@ -79,7 +79,7 @@ class Document:
 
 
 @dataclass(config=config)
-class Data:
+class Webhook:
     id: int
     company_id: int
     staff_id: int
@@ -136,4 +136,4 @@ class YclientsEvent:
     resource: str
     resource_id: int
     status: str
-    data: Data
+    data: Webhook
