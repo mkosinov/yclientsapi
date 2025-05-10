@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import field
+from datetime import datetime
 
 from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
@@ -89,7 +90,7 @@ class Activity:
     company_id: int
     service_id: int
     staff_id: int
-    date: str
+    date: datetime
     timestamp: int
     length: int
     capacity: int

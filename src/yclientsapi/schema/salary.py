@@ -1,4 +1,5 @@
 from dataclasses import field
+from datetime import datetime
 
 from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
@@ -87,7 +88,7 @@ class SalaryCalculationDetailTarget:
 
 @dataclass(config=config)
 class SalaryCalculationDetailItem:
-    date: str
+    date: datetime
     time: str
     item_id: int
     item_type_slug: str
@@ -113,7 +114,9 @@ class SalaryCalculationDetailData:
     date_to: str
     comment: str
     currency: Currency
-    salary_items: list[SalaryCalculationDetailItem] = field(default_factory=list)
+    salary_items: list[SalaryCalculationDetailItem] = field(
+        default_factory=list
+    )
 
 
 @dataclass(config=config)
