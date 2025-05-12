@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
 
@@ -79,7 +81,7 @@ class Document:
 
 
 @dataclass(config=config)
-class Data:
+class Webhook:
     id: int
     company_id: int
     staff_id: int
@@ -89,8 +91,8 @@ class Data:
     client: Client | None
     comer: dict | None  # TODO: add nested schema
     clients_count: int
-    date: str
-    datetime: str
+    date: datetime
+    datetime: datetime
     create_date: str
     comment: str
     online: bool
@@ -136,4 +138,4 @@ class YclientsEvent:
     resource: str
     resource_id: int
     status: str
-    data: Data
+    data: Webhook

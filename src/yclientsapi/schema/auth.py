@@ -9,7 +9,7 @@ config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
 
 @dataclass(config=config)
-class Data:
+class Auth:
     id: int
     user_token: str
     name: str
@@ -25,5 +25,5 @@ class Data:
 @dataclass(config=config)
 class AuthResponse:
     success: bool
-    data: Data
+    data: Auth
     meta: list = field(default_factory=list)
