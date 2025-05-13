@@ -16,7 +16,7 @@ class Staff:
         :param staff_id: id of staff.
         :return: StaffResponse
         """
-        url_suffix = "/company/{company_id}/staff/{staff_id}"
+        url_suffix = "/v1/company/{company_id}/staff/{staff_id}"
         url_params = {"staff_id": staff_id}
         response = self.__api._sender.send(
             "GET",
@@ -31,7 +31,7 @@ class Staff:
 
         :return: StaffListResponse
         """
-        url_suffix = "/company/{company_id}/staff/"
+        url_suffix = "/v1/company/{company_id}/staff/"
         response = self.__api._sender.send(
             "GET",
             url_suffix,

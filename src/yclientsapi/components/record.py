@@ -53,7 +53,7 @@ class Record:
         for arg, value in locals().items():
             if arg not in ("self", "params") and value:
                 params[arg] = value
-        url_suffix = "/records/{company_id}"
+        url_suffix = "/v1/records/{company_id}"
         response = self.__api._sender.send(
             method="GET",
             url_suffix=url_suffix,

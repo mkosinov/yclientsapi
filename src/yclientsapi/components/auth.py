@@ -17,7 +17,7 @@ class Auth:
         :param password: User's password
         :return: AuthResponse
         """
-        url_suffix = "/auth"
+        url_suffix = "/v1/auth"
         data: dict[str, str] = {"login": login, "password": password}
         response = self.__api._sender.send(
             method="POST",

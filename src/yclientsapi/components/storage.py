@@ -15,7 +15,7 @@ class Storage:
 
         :return: StorageListResponse
         """
-        url_suffix = "/storages/{company_id}"
+        url_suffix = "/v1/storages/{company_id}"
         response = self.__api._sender.send(
             "GET",
             url_suffix,

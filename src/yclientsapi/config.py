@@ -9,7 +9,9 @@ class ExtraFieldsInResponse(StrEnum):
 
 
 class Config:
-    api_base_url = os.getenv("YCLIENTS_API_BASE_URL", "https://api.yclients.com/api/v1")
+    api_base_url = os.getenv(
+        "YCLIENTS_API_BASE_URL", "https://api.yclients.com/api"
+    )
     extra_fields_in_response = os.getenv(
         "EXTRA_FIELDS_IN_RESPONSE", ExtraFieldsInResponse.IGNORE.value
     )

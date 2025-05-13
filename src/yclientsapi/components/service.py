@@ -20,7 +20,7 @@ class Service:
         :param staff_id: id of staff
         :return: ServiceListResponse
         """
-        url_suffix = "/company/{company_id}/services/"
+        url_suffix = "/v1/company/{company_id}/services/"
         params = {}
         if staff_id:
             params["staff_id"] = staff_id
@@ -44,7 +44,7 @@ class Service:
         :param service_id: id of service
         :return: ServiceResponse
         """
-        url_suffix = "/company/{company_id}/services/{service_id}"
+        url_suffix = "/v1/company/{company_id}/services/{service_id}"
         response = self.__api._sender.send(
             method="GET",
             url_suffix=url_suffix,

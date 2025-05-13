@@ -3,7 +3,10 @@ from __future__ import annotations
 import orjson
 
 from yclientsapi import YclientsAPI
-from yclientsapi.schema.activity import ActivityResponse, ActivitySearchListResponse
+from yclientsapi.schema.activity import (
+    ActivityResponse,
+    ActivitySearchListResponse,
+)
 
 
 class Activity:
@@ -17,7 +20,7 @@ class Activity:
         :param activity_id: id of activity. Required.
         :return: ActivityResponse
         """
-        url_suffix = "/activity/{company_id}/{activity_id}/"
+        url_suffix = "/v1/activity/{company_id}/{activity_id}/"
         response = self.__api._sender.send(
             method="GET",
             url_suffix=url_suffix,
@@ -48,7 +51,7 @@ class Activity:
         for arg, value in locals().items():
             if arg not in ("self", "params") and value:
                 params[arg] = value
-        url_suffix = "/activity/{company_id}/search/"
+        url_suffix = "/v1/activity/{company_id}/search/"
         response = self.__api._sender.send(
             method="GET",
             url_suffix=url_suffix,

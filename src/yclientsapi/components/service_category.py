@@ -19,7 +19,7 @@ class ServiceCategory:
 
         :return: ServiceCategoryListResponse
         """
-        url_suffix = "/company/{company_id}/service_categories/"
+        url_suffix = "/v1/company/{company_id}/service_categories/"
         response = self.__api._sender.send(
             method="GET",
             url_suffix=url_suffix,
@@ -36,7 +36,9 @@ class ServiceCategory:
         :param category_id: id of service category
         :return: ServiceCategoryResponse
         """
-        url_suffix = "/company/{company_id}/service_categories/{category_id}"
+        url_suffix = (
+            "/v1/company/{company_id}/service_categories/{category_id}"
+        )
         response = self.__api._sender.send(
             method="GET",
             url_suffix=url_suffix,
