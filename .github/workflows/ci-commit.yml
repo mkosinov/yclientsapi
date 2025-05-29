@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  ci:
+  ci-commit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -16,17 +16,5 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Poetry
-        run: pip install poetry
-
-      - name: Install dependencies
-        run: poetry install
-
       - name: Run ruff linter
         run: poetry run ruff check .
-
-      - name: Run tests with coverage
-        run: poetry run pytest --cov=src --cov-report=xml
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4

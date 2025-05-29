@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  ci:
+  ci-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -22,29 +22,11 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Run ruff linter
-        run: poetry run ruff check .
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $GITHUB_ENV
 
       - name: Run tests with coverage
         run: poetry run pytest --cov=src --cov-report=xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
-
-      - name: Notify PR author on failure
-        if: failure()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const pr = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number
-            });
-            const author = pr.data.user.login;
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body: `@${author} CI failed: please check the test results and fix the issues.`
-            }); 
