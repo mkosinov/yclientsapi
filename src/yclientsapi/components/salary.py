@@ -1,4 +1,5 @@
 from datetime import date
+from http import HTTPMethod
 
 import orjson
 
@@ -39,7 +40,7 @@ class Salary:
         }
         url_suffix = "/v1/company/{company_id}/salary/payroll/staff/{staff_id}/calculation/"
         response = self.__api._sender.send(
-            method="GET",
+            method=HTTPMethod.GET,
             url_suffix=url_suffix,
             url_params={"staff_id": staff_id},
             headers=self.__api._headers.base_with_user_token,
@@ -59,7 +60,7 @@ class Salary:
         """
         url_suffix = "/v1/company/{company_id}/salary/payroll/staff/{staff_id}/calculation/{calculation_id}"
         response = self.__api._sender.send(
-            method="GET",
+            method=HTTPMethod.GET,
             url_suffix=url_suffix,
             url_params={
                 "staff_id": staff_id,
@@ -94,7 +95,7 @@ class Salary:
             "/v1/company/{company_id}/salary/calculation/staff/{staff_id}/"
         )
         response = self.__api._sender.send(
-            method="GET",
+            method=HTTPMethod.GET,
             url_suffix=url_suffix,
             url_params={"staff_id": staff_id},
             headers=self.__api._headers.base_with_user_token,

@@ -1,18 +1,15 @@
-from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
 
 from yclientsapi.config import Config
 
-config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
-
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Price:
     min: int
     max: int
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class GridSetting:
     grid_first_timeslot: int
     grid_last_timeslot: int
@@ -22,27 +19,27 @@ class GridSetting:
     is_grid_flexible: bool
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class WeekdaySetting:
     weekday: int
     timeslots: list
     setting: GridSetting
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class GridSettings:
     is_enabled: bool
     weekdays_settings: list[WeekdaySetting]
     dates_settings: list
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Chain:
     id: int
     title: str
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Employee:
     id: int
     phone: str
@@ -60,7 +57,7 @@ class Employee:
     number_insurance_certificates: str
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ServiceLink:
     service_id: int
     master_id: int
@@ -72,7 +69,7 @@ class ServiceLink:
     price: Price | None
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Position:
     id: int
     chain_id: int
@@ -83,7 +80,7 @@ class Position:
     only_chain_appointment: bool
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class User:
     id: int
     name: str
@@ -93,7 +90,7 @@ class User:
     is_approved: bool
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class StaffData:
     id: int
     api_id: str | None
@@ -138,19 +135,19 @@ class StaffData:
     google_link: str
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class StaffResponse:
     success: bool
     data: StaffData
     meta: list
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class StaffListMeta:
     count: int
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class StaffListResponse:
     success: bool
     meta: StaffListMeta

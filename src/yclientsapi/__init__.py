@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from yclientsapi.components.storage import Storage
 from yclientsapi.config import Config
 from yclientsapi.headers import Headers
-from yclientsapi.sender import httpxSender
+from yclientsapi.sender import HttpxSender
 
 __all__ = ["YclientsAPI"]
 
@@ -14,7 +13,7 @@ class YclientsAPI:
     :param company_id: company id.
     :param partner_token: partner token.
     :param user_token: user token. Optional. But reqired for many api calls.
-    :param ConfigDict: dictionary for changing default config. Optional.
+    :param config_dict: dictionary for changing default config. Optional.
 
     If no user_token is provided, you can call auth.authenticate() later to retrive and save user_token for futher requests.
 
@@ -35,22 +34,24 @@ class YclientsAPI:
         company_id: int | str,
         partner_token: str,
         user_token: str = "",
-        ConfigDict: dict | None = None,
+        config_dict: dict | None = None,
     ):
-        ConfigDict = ConfigDict or {}
-        self._config: Config = Config(company_id, **ConfigDict)
+        config_dict = config_dict or {}
+        self._config: Config = Config(company_id, **config_dict)
         self._headers: Headers = Headers(partner_token, user_token)
-        self._sender: httpxSender = httpxSender(self)
+        self._sender: HttpxSender = HttpxSender(self)
         self.__collect_api_methods()
 
     def __collect_api_methods(self):
         from yclientsapi.components.activity import Activity
         from yclientsapi.components.auth import Auth
+        from yclientsapi.components.duplication import Duplication
         from yclientsapi.components.record import Record
         from yclientsapi.components.salary import Salary
         from yclientsapi.components.service import Service
         from yclientsapi.components.service_category import ServiceCategory
         from yclientsapi.components.staff import Staff
+        from yclientsapi.components.storage import Storage
 
         self.auth = Auth(self)
         self.staff = Staff(self)
@@ -60,6 +61,7 @@ class YclientsAPI:
         self.record = Record(self)
         self.salary = Salary(self)
         self.storage = Storage(self)
+        self.duplication = Duplication(self)
 
     def __enter__(self):
         self._sender.create_session()

@@ -1,14 +1,11 @@
 from dataclasses import field
 
-from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
 
 from yclientsapi.config import Config
 
-config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
-
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Auth:
     id: int
     user_token: str
@@ -22,7 +19,7 @@ class Auth:
     _: str | None = field(default=None, metadata={"alias": "0"})
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class AuthResponse:
     success: bool
     data: Auth

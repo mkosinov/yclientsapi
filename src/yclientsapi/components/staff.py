@@ -1,7 +1,14 @@
+from __future__ import annotations
+
+from http import HTTPMethod
+from typing import TYPE_CHECKING
+
 import orjson
 
-from yclientsapi import YclientsAPI
 from yclientsapi.schema.staff import StaffListResponse, StaffResponse
+
+if TYPE_CHECKING:
+    from yclientsapi import YclientsAPI
 
 
 class Staff:
@@ -19,7 +26,7 @@ class Staff:
         url_suffix = "/v1/company/{company_id}/staff/{staff_id}"
         url_params = {"staff_id": staff_id}
         response = self.__api._sender.send(
-            "GET",
+            HTTPMethod.GET,
             url_suffix,
             url_params,
             headers=self.__api._headers.base_with_user_token,
@@ -33,7 +40,7 @@ class Staff:
         """
         url_suffix = "/v1/company/{company_id}/staff/"
         response = self.__api._sender.send(
-            "GET",
+            HTTPMethod.GET,
             url_suffix,
             headers=self.__api._headers.base_with_user_token,
         )

@@ -1,20 +1,17 @@
 from dataclasses import field
 
-from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
 
 from yclientsapi.config import Config
 
-config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
-
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Price:
     min: int
     max: int
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ServiceStaffData:
     id: int
     seance_length: int
@@ -24,7 +21,7 @@ class ServiceStaffData:
     name: str
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ImageGroupImagesBasic:
     id: int
     path: str
@@ -35,12 +32,12 @@ class ImageGroupImagesBasic:
     version: str
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ImageGroupImages:
     basic: ImageGroupImagesBasic | None
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ImageGroup:
     id: int
     entity: str
@@ -48,7 +45,7 @@ class ImageGroup:
     images: ImageGroupImages
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ServiceData:
     booking_title: str
     tax_variant: int | None
@@ -96,14 +93,14 @@ class ServiceData:
     resources: list[int] = field(default_factory=list)
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ServiceResponse:
     success: bool
     data: ServiceData
     meta: list = field(default_factory=list)
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ServiceListResponse:
     success: bool
     data: list[ServiceData]

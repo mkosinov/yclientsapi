@@ -1,15 +1,12 @@
 from dataclasses import field
 from datetime import datetime
 
-from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
 
 from yclientsapi.config import Config
 
-config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
-
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class RecordStaff:
     id: int
     api_id: str | None
@@ -22,7 +19,7 @@ class RecordStaff:
     votes_count: int
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class RecordService:
     id: int
     title: str
@@ -35,7 +32,7 @@ class RecordService:
     amount: int
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class RecordClient:
     id: int
     name: str
@@ -53,7 +50,7 @@ class RecordClient:
     is_new: bool
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class RecordLabel:
     id: str
     color: str
@@ -61,7 +58,7 @@ class RecordLabel:
     font_color: str
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class RecordDocument:
     id: int
     type_id: int
@@ -78,7 +75,7 @@ class RecordDocument:
     is_sale_bill_printed: bool | None
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Record:
     id: int
     company_id: int
@@ -134,13 +131,13 @@ class Record:
     acceptance_free: str | None
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class RecordListMeta:
     page: int
     total_count: int
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class RecordListResponse:
     success: bool
     data: list[Record]

@@ -1,14 +1,11 @@
 from dataclasses import field
 
-from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
 
 from yclientsapi.config import Config
 
-config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
-
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ServiceCategoryData:
     id: int
     category_id: int
@@ -24,14 +21,14 @@ class ServiceCategoryData:
     staff: list[int] = field(default_factory=list)
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ServiceCategoryListResponse:
     success: bool
     meta: dict[str, int]
     data: list[ServiceCategoryData] = field(default_factory=list)
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class ServiceCategoryResponse:
     success: bool
     data: ServiceCategoryData

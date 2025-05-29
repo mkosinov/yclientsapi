@@ -1,14 +1,11 @@
 from datetime import datetime
 
-from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
 
 from yclientsapi.config import Config
 
-config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
-
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Service:
     id: int
     title: str
@@ -21,7 +18,7 @@ class Service:
     amount: int
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Staff:
     id: int
     api_id: str | None
@@ -34,7 +31,7 @@ class Staff:
     votes_count: int
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Client:
     id: int
     name: str
@@ -54,7 +51,7 @@ class Client:
     client_tags: list[dict]  # TODO: add nested schema
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class RecordLabel:
     id: int
     title: str
@@ -63,7 +60,7 @@ class RecordLabel:
     font_color: str
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Document:
     id: int
     type_id: int
@@ -80,7 +77,7 @@ class Document:
     is_sale_bill_printed: bool
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class Webhook:
     id: int
     company_id: int
@@ -132,7 +129,7 @@ class Webhook:
     short_link: str
 
 
-@dataclass(config=config)
+@dataclass(config=Config.dataclass_config)
 class YclientsEvent:
     company_id: int
     resource: str

@@ -24,9 +24,11 @@ If you don't have USER_TOKEN, you can call auth.authenticate(USER_LOGIN, USER_PA
 
 ## Tests
 
-/src/yclientsapi/tests/integration/README.md
+Integration tests are located in `/src/yclientsapi/tests/integration/`. See `/src/yclientsapi/tests/README.md` for details on running tests and setup.
 
 ## More info
 
 * <https://yclients.com/appstore/developers>
 * <https://developers.yclients.com/>
+
+[![codecov](https://codecov.io/gh/mkosinov/yclientsAPI/branch/main/graph/badge.svg)](https://codecov.io/gh/mkosinov/yclientsAPI)

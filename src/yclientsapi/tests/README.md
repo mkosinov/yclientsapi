@@ -9,7 +9,32 @@ No functional tests are made, as package functionality is only a wrapper to API 
 * httpx
 * pydantic
 
-Tests include only "get" method requests to the Yclients API using real account and real data.
-No create/update/delete methods are being tested as they will leave an undesirable footprint in real account and also require these methods to be added to the package.
+## Running Tests
 
-If you want to run tests on your own account, you have to provide both enviroment variables (as in .env.example) and test data (as in /src/yclientsapi/tests/integration/src/test_data/).
+To run the integration tests, use:
+
+```bash
+pytest src/yclientsapi/tests/integration/src/tests/test_activity.py
+```
+
+Some tests will create data in your account but should cleanup after tests finish.
+
+## Coverage
+
+To measure test coverage, run:
+
+```bash
+pytest --cov=src
+```
+
+This will display a coverage summary in the terminal. For a detailed HTML report, run:
+
+```bash
+pytest --cov=src --cov-report=html
+```
+
+The HTML report will be generated in the `htmlcov` directory.
+
+## Setup
+
+If you want to run tests on your own account, you have to provide both environment variables (as in .env.example) and test data (as in /src/yclientsapi/tests/integration/src/test_data/).
