@@ -11,7 +11,6 @@ user_password = os.getenv("YCLIENTS_USER_PASSWORD")
 user_token = os.getenv("YCLIENTS_USER_TOKEN")
 
 company_id = os.getenv("YCLIENTS_COMPANY_ID")
-activity_id = os.getenv("YCLIENTS_ACTIVITY_ID")
 staff_id = os.getenv("YCLIENTS_STAFF_ID")
 service_id = os.getenv("YCLIENTS_SERVICE_ID")
 service_category_id = os.getenv("YCLIENTS_SERVICE_CATEGORY_ID")

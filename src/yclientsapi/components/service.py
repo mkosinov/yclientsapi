@@ -1,3 +1,5 @@
+from http import HTTPMethod
+
 import orjson
 
 from yclientsapi.schema.service import ServiceListResponse, ServiceResponse
@@ -20,14 +22,14 @@ class Service:
         :param staff_id: id of staff
         :return: ServiceListResponse
         """
-        url_suffix = "/company/{company_id}/services/"
+        url_suffix = "/v1/company/{company_id}/services/"
         params = {}
         if staff_id:
             params["staff_id"] = staff_id
         if category_id:
             params["category_id"] = category_id
         response = self.__api._sender.send(
-            method="GET",
+            method=HTTPMethod.GET,
             url_suffix=url_suffix,
             url_params={},
             headers=self.__api._headers.base_with_user_token,
@@ -44,9 +46,9 @@ class Service:
         :param service_id: id of service
         :return: ServiceResponse
         """
-        url_suffix = "/company/{company_id}/services/{service_id}"
+        url_suffix = "/v1/company/{company_id}/services/{service_id}"
         response = self.__api._sender.send(
-            method="GET",
+            method=HTTPMethod.GET,
             url_suffix=url_suffix,
             url_params={"service_id": service_id},
             headers=self.__api._headers.base_with_user_token,

@@ -1,6 +1,10 @@
+from http import HTTPMethod
+from typing import TYPE_CHECKING
+
 import orjson
 
-from yclientsapi import YclientsAPI
+if TYPE_CHECKING:
+    from yclientsapi import YclientsAPI
 from yclientsapi.schema.storage import StorageListResponse
 
 
@@ -15,10 +19,10 @@ class Storage:
 
         :return: StorageListResponse
         """
-        url_suffix = "/storages/{company_id}"
+        url_suffix = "/v1/storages/{company_id}"
         response = self.__api._sender.send(
-            "GET",
-            url_suffix,
+            method=HTTPMethod.GET,
+            url_suffix=url_suffix,
             headers=self.__api._headers.base_with_user_token,
         )
         return StorageListResponse(**orjson.loads(response.content))

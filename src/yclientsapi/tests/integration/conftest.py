@@ -1,21 +1,16 @@
-from typing import Any, Generator
-
-import pytest
-
-from yclientsapi import YclientsAPI
-from yclientsapi.tests.integration.vars import company_id, partner_token, user_token
-
-# @pytest.fixture(scope="session")
-# def get_httpx_client() -> httpx.Client:
-#     print("Creating HTTPX client in pytest session")
-#     base_url = "https://api.yclients.com/api/"
-#     version = "v1/"
-#     return httpx.Client(base_url=base_url + version)
+pytest_plugins = [
+    "src.yclientsapi.tests.integration.src.fixtures.fixt_lib",
+    "src.yclientsapi.tests.integration.src.fixtures.fixt_activity",
+    "src.yclientsapi.tests.integration.src.fixtures.fixt_duplication",
+]
 
 
-@pytest.fixture(scope="session")
-def lib() -> Generator[YclientsAPI, Any, None]:
-    with YclientsAPI(
-        company_id=company_id, partner_token=partner_token, user_token=user_token
-    ) as api:
-        yield api
+def pytest_configure(config):
+    """Register custom pytest markers to avoid warnings."""
+    config.addinivalue_line(
+        "markers", "activity: mark tests related to activities"
+    )
+    config.addinivalue_line(
+        "markers",
+        "duplication: mark tests related to activity duplication",
+    )

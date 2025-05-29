@@ -1,3 +1,5 @@
+from http import HTTPMethod
+
 import orjson
 
 from yclientsapi.schema.service_category import (
@@ -19,9 +21,9 @@ class ServiceCategory:
 
         :return: ServiceCategoryListResponse
         """
-        url_suffix = "/company/{company_id}/service_categories/"
+        url_suffix = "/v1/company/{company_id}/service_categories/"
         response = self.__api._sender.send(
-            method="GET",
+            method=HTTPMethod.GET,
             url_suffix=url_suffix,
             headers=self.__api._headers.base_with_user_token,
         )
@@ -36,9 +38,11 @@ class ServiceCategory:
         :param category_id: id of service category
         :return: ServiceCategoryResponse
         """
-        url_suffix = "/company/{company_id}/service_categories/{category_id}"
+        url_suffix = (
+            "/v1/company/{company_id}/service_categories/{category_id}"
+        )
         response = self.__api._sender.send(
-            method="GET",
+            method=HTTPMethod.GET,
             url_suffix=url_suffix,
             url_params={"category_id": category_id},
             headers=self.__api._headers.base_with_user_token,

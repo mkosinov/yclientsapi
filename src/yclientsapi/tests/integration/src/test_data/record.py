@@ -1,10 +1,17 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, ClassVar
+
 import pytest
+
+if TYPE_CHECKING:
+    from _pytest.mark import ParameterSet
 
 count = 3
 
 
 class Parametrize:
-    list = [
+    list: ClassVar[list[ParameterSet]] = [
         pytest.param(
             {
                 "page": None,

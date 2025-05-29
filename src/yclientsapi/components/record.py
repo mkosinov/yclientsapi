@@ -1,9 +1,17 @@
-from datetime import date
+from __future__ import annotations
+
+from http import HTTPMethod
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from datetime import date
 
 import orjson
 
-from yclientsapi import YclientsAPI
 from yclientsapi.schema.record import RecordListResponse
+
+if TYPE_CHECKING:
+    from yclientsapi import YclientsAPI
 
 
 class Record:
@@ -53,9 +61,9 @@ class Record:
         for arg, value in locals().items():
             if arg not in ("self", "params") and value:
                 params[arg] = value
-        url_suffix = "/records/{company_id}"
+        url_suffix = "/v1/records/{company_id}"
         response = self.__api._sender.send(
-            method="GET",
+            method=HTTPMethod.GET,
             url_suffix=url_suffix,
             url_params={},
             headers=self.__api._headers.base_with_user_token,

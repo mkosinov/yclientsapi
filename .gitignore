@@ -1,4 +1,7 @@
 #custom
+plan.md
+CURSOR_SETTINGS.md
+.cursor-settings.json
 .vscode/
 .DS_Store
 .nogit

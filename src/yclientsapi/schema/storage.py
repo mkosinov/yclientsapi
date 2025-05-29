@@ -1,15 +1,12 @@
-from typing import List
+from dataclasses import field
 
-from pydantic import BaseModel, ConfigDict
 from pydantic.dataclasses import dataclass
 
 from yclientsapi.config import Config
 
-config = ConfigDict(extra=Config.extra_fields_in_response, frozen=True)
 
-
-@dataclass(config=config)
-class StorageData(BaseModel):
+@dataclass(config=Config.dataclass_config)
+class StorageData:
     id: int
     title: str
     for_service: int
@@ -18,8 +15,8 @@ class StorageData(BaseModel):
     weight: int | None
 
 
-@dataclass(config=config)
-class StorageListResponse(BaseModel):
+@dataclass(config=Config.dataclass_config)
+class StorageListResponse:
     success: bool
-    data: List[StorageData]
-    meta: List
+    data: list[StorageData]
+    meta: list = field(default_factory=list)

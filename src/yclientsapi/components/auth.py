@@ -1,6 +1,11 @@
+from http import HTTPMethod
+from typing import TYPE_CHECKING
+
 import orjson
 
-from yclientsapi import YclientsAPI
+if TYPE_CHECKING:
+    from yclientsapi import YclientsAPI
+
 from yclientsapi.exceptions import YclientsApiResponseError
 from yclientsapi.schema.auth import AuthResponse
 
@@ -17,10 +22,10 @@ class Auth:
         :param password: User's password
         :return: AuthResponse
         """
-        url_suffix = "/auth"
+        url_suffix = "/v1/auth"
         data: dict[str, str] = {"login": login, "password": password}
         response = self.__api._sender.send(
-            method="POST",
+            method=HTTPMethod.POST,
             url_suffix=url_suffix,
             headers=self.__api._headers.base,
             json=data,
@@ -28,7 +33,6 @@ class Auth:
         result = AuthResponse(**orjson.loads(response.content))
         # TODO: create Facade to retrive, save and return user_token
         if result.success:
-            print(result)
             self.__api._headers.user_token = result.data.user_token
             return result
         else:

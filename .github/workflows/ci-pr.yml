@@ -1,0 +1,49 @@
+name: PR CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file from secrets
+        run: |
+          echo "#CONFIG" >> .env
+          echo "YCLIENTS_PARTNER_TOKEN=${{ secrets.YCLIENTS_PARTNER_TOKEN }}" >> .env
+          echo "YCLIENTS_USER_LOGIN=${{ secrets.YCLIENTS_USER_LOGIN }}" >> .env
+          echo "YCLIENTS_USER_PASSWORD=${{ secrets.YCLIENTS_USER_PASSWORD }}" >> .env
+          echo "YCLIENTS_USER_TOKEN=${{ secrets.YCLIENTS_USER_TOKEN }}" >> .env
+          echo "#TEST DATA" >> .env
+          echo "YCLIENTS_COMPANY_ID=${{ secrets.YCLIENTS_COMPANY_ID }}" >> .env
+          echo "YCLIENTS_STAFF_ID=${{ secrets.YCLIENTS_STAFF_ID }}" >> .env
+          echo "YCLIENTS_SERVICE_ID=${{ secrets.YCLIENTS_SERVICE_ID }}" >> .env
+          echo "YCLIENTS_SERVICE_CATEGORY_ID=${{ secrets.YCLIENTS_SERVICE_CATEGORY_ID }}" >> .env
+          echo "YCLIENTS_RESOURCE_ID=${{ secrets.YCLIENTS_RESOURCE_ID }}" >> .env
+          echo "YCLIENTS_CALCULATION_ID=${{ secrets.YCLIENTS_CALCULATION_ID }}" >> .env
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $GITHUB_ENV
+      
+      
+
+      - name: Run tests with coverage
+        run: poetry run pytest --cov=src --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
