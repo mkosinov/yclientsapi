@@ -16,5 +16,8 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install ruff
+        run: pip install ruff
+
       - name: Run ruff linter
-        run: poetry run ruff check .
+        run: ruff check .
