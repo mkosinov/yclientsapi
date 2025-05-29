@@ -1,5 +1,7 @@
 # Poor YclientsAPI
 
+[![codecov](https://codecov.io/gh/mkosinov/yclientsAPI/branch/main/graph/badge.svg)](https://codecov.io/gh/mkosinov/yclientsAPI)
+
 Small set of methods for working with Yclients API. Non official.
 
 ## Installation
@@ -30,5 +32,3 @@ Integration tests are located in `/src/yclientsapi/tests/integration/`. See `/sr
 
 * <https://yclients.com/appstore/developers>
 * <https://developers.yclients.com/>
-
-[![codecov](https://codecov.io/gh/mkosinov/yclientsAPI/branch/main/graph/badge.svg)](https://codecov.io/gh/mkosinov/yclientsAPI)
