@@ -26,7 +26,7 @@ If you don't have USER_TOKEN, you can call auth.authenticate(USER_LOGIN, USER_PA
 
 ## Tests
 
-Integration tests are located in `/src/yclientsapi/tests/integration/`. See `/src/yclientsapi/tests/README.md` for details on running tests and setup.
+Integration tests are located in `/src/yclientsapi/tests/integration/`. See `/src/yclientsapi/tests/README.md` for details on running tests and setup. CRUD operations for service categories are covered by integration tests and use fixtures for setup/cleanup.
 
 ## More info
 
