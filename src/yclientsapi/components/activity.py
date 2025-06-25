@@ -4,6 +4,7 @@ from http import HTTPMethod
 import orjson
 
 from yclientsapi import YclientsAPI
+from yclientsapi.logger import log_call
 from yclientsapi.schema.activity import (
     ActivityCreate,
     ActivityDatesListResponse,
@@ -23,6 +24,7 @@ class Activity:
     def __init__(self, api: YclientsAPI):
         self.__api: YclientsAPI = api
 
+    @log_call
     def get(self, activity_id: str | int) -> ActivityResponse:
         """Returns details of group activity by id.
         :param activity_id: id of activity. Required.
@@ -37,6 +39,7 @@ class Activity:
         )
         return ActivityResponse(**orjson.loads(response.content))
 
+    @log_call
     def search(
         self,
         from_: str,
@@ -66,6 +69,7 @@ class Activity:
         )
         return ActivitySearchListResponse(**orjson.loads(response.content))
 
+    @log_call
     def create(self, activity: ActivityCreate) -> ActivityResponse:
         """Creates a new activity (group event).
         :param activity: ActivityCreate dataclass with all parameters for the activity creation.
@@ -81,9 +85,8 @@ class Activity:
         )
         return ActivityResponse(**orjson.loads(response.content))
 
-    def update(
-        self, activity_id: int, activity: ActivityCreate
-    ) -> ActivityResponse:
+    @log_call
+    def update(self, activity_id: int, activity: ActivityCreate) -> ActivityResponse:
         """Updates an existing activity (group event).
         :param activity_id: ID of the activity to update (required)
         :param activity: ActivityCreate dataclass with all parameters for the update
@@ -100,6 +103,7 @@ class Activity:
         )
         return ActivityResponse(**orjson.loads(response.content))
 
+    @log_call
     def delete(self, activity_id: int) -> ActivityDeleteResponse:
         """Deletes a activity by id.
         :param activity_id: ID of the activity to delete (required)
@@ -114,6 +118,7 @@ class Activity:
         )
         return ActivityDeleteResponse(**orjson.loads(response.content))
 
+    @log_call
     def filters(
         self,
         service_ids: list[int] | None = None,
@@ -136,6 +141,7 @@ class Activity:
         )
         return ActivityFiltersResponse(**orjson.loads(response.content))
 
+    @log_call
     def search_dates_range(
         self,
         service_ids: list[int] | None = None,
@@ -158,6 +164,7 @@ class Activity:
         )
         return ActivityDatesRangeResponse(**orjson.loads(response.content))
 
+    @log_call
     def search_dates(
         self,
         from_: str,
@@ -185,6 +192,7 @@ class Activity:
         )
         return ActivityDatesListResponse(**orjson.loads(response.content))
 
+    @log_call
     def group_services(
         self,
         staff_id: int | None = None,

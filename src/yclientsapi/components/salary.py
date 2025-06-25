@@ -3,6 +3,7 @@ from http import HTTPMethod
 
 import orjson
 
+from yclientsapi.logger import log_call
 from yclientsapi.schema.salary import (
     SalaryBalanceResponse,
     SalaryCalculationDetailResponse,
@@ -16,6 +17,7 @@ class Salary:
     def __init__(self, api):
         self.__api = api
 
+    @log_call
     def list_calculations(
         self,
         staff_id: int,
@@ -34,11 +36,11 @@ class Salary:
             "date_from": date_from.isoformat()
             if isinstance(date_from, date)
             else date_from,
-            "date_to": date_to.isoformat()
-            if isinstance(date_to, date)
-            else date_to,
+            "date_to": date_to.isoformat() if isinstance(date_to, date) else date_to,
         }
-        url_suffix = "/v1/company/{company_id}/salary/payroll/staff/{staff_id}/calculation/"
+        url_suffix = (
+            "/v1/company/{company_id}/salary/payroll/staff/{staff_id}/calculation/"
+        )
         response = self.__api._sender.send(
             method=HTTPMethod.GET,
             url_suffix=url_suffix,
@@ -48,6 +50,7 @@ class Salary:
         )
         return SalaryCalculationListResponse(**orjson.loads(response.content))
 
+    @log_call
     def get_calculation_details(
         self, staff_id: int, calculation_id: int
     ) -> SalaryCalculationDetailResponse:
@@ -68,10 +71,9 @@ class Salary:
             },
             headers=self.__api._headers.base_with_user_token,
         )
-        return SalaryCalculationDetailResponse(
-            **orjson.loads(response.content)
-        )
+        return SalaryCalculationDetailResponse(**orjson.loads(response.content))
 
+    @log_call
     def get_staff_balance(
         self, staff_id: int, date_from: str | date, date_to: str | date
     ) -> SalaryBalanceResponse:
@@ -87,13 +89,9 @@ class Salary:
             "date_from": date_from.isoformat()
             if isinstance(date_from, date)
             else date_from,
-            "date_to": date_to.isoformat()
-            if isinstance(date_to, date)
-            else date_to,
+            "date_to": date_to.isoformat() if isinstance(date_to, date) else date_to,
         }
-        url_suffix = (
-            "/v1/company/{company_id}/salary/calculation/staff/{staff_id}/"
-        )
+        url_suffix = "/v1/company/{company_id}/salary/calculation/staff/{staff_id}/"
         response = self.__api._sender.send(
             method=HTTPMethod.GET,
             url_suffix=url_suffix,

@@ -3,6 +3,8 @@ from typing import TYPE_CHECKING
 
 import orjson
 
+from yclientsapi.logger import log_call
+
 if TYPE_CHECKING:
     from yclientsapi import YclientsAPI
 from yclientsapi.schema.storage import StorageListResponse
@@ -14,6 +16,7 @@ class Storage:
     def __init__(self, api):
         self.__api: YclientsAPI = api
 
+    @log_call
     def list(self) -> StorageListResponse:
         """Returns list of all storages.
 

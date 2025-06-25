@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 
 import orjson
 
+from yclientsapi.logger import log_call
 from yclientsapi.schema.record import RecordListResponse
 
 if TYPE_CHECKING:
@@ -23,6 +24,7 @@ class Record:
     def __init__(self, api):
         self.__api: YclientsAPI = api
 
+    @log_call
     def list(
         self,
         page: int | None = None,

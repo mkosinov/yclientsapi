@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 import orjson
 
+from yclientsapi.logger import log_call
 from yclientsapi.schema.staff import StaffListResponse, StaffResponse
 
 if TYPE_CHECKING:
@@ -17,6 +18,7 @@ class Staff:
     def __init__(self, api):
         self.__api: YclientsAPI = api
 
+    @log_call
     def get(self, staff_id: str | int) -> StaffResponse:
         """Returns one staff.
 
@@ -33,6 +35,7 @@ class Staff:
         )
         return StaffResponse(**orjson.loads(response.content))
 
+    @log_call
     def list(self, staff_id: str | int = "") -> StaffListResponse:
         """Returns list of all staff.
 
