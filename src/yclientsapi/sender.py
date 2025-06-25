@@ -49,7 +49,15 @@ class HttpxSender(AbstractHttpSender):
         url_params = url_params or {}
         url = url_suffix.format(company_id=self._api._config.company_id, **url_params)
         headers = headers or {}
+        self._api.logger.info(f"Sending {method.value} request to {url}")
+        self._api.logger.debug(f"Request headers: {headers}")
+        if "json" in kwargs:
+            self._api.logger.debug(f"Request JSON body: {kwargs['json']}")
+        elif "data" in kwargs:
+            self._api.logger.debug(f"Request data body: {kwargs['data']}")
         response = self.session.request(method.value, url, headers=headers, **kwargs)
+        self._api.logger.debug(f"Response status: {response.status_code}")
+        self._api.logger.debug(f"Response content: {response.content}")
         try:
             response.raise_for_status()
         except httpx.HTTPStatusError as err:
@@ -70,5 +78,6 @@ class HttpxSender(AbstractHttpSender):
                 f"Request headers: {request_headers}\n"
                 f"Request body: {request_body}"
             )
+            self._api.logger.error(message)
             raise YclientsApiResponseError(message) from err
         return response

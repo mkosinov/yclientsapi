@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+
 from yclientsapi.config import Config
 from yclientsapi.headers import Headers
 from yclientsapi.sender import HttpxSender
@@ -13,7 +15,8 @@ class YclientsAPI:
     :param company_id: company id.
     :param partner_token: partner token.
     :param user_token: user token. Optional. But reqired for many api calls.
-    :param config_dict: dictionary for changing default config. Optional.
+    :param logger: logger for logging. Optional. If not provided, default logger will be used.
+    :param config_dict: dictionary for changing default dataclass config (extra fields in response). Optional.
 
     If no user_token is provided, you can call auth.authenticate() later to retrive and save user_token for futher requests.
 
@@ -34,9 +37,14 @@ class YclientsAPI:
         company_id: int | str,
         partner_token: str,
         user_token: str = "",
+        logger: logging.Logger | None = None,
         config_dict: dict | None = None,
     ):
         config_dict = config_dict or {}
+        if logger:
+            self.logger = logger
+        else:
+            self.logger = logging.getLogger("yclientsapi")
         self._config: Config = Config(company_id, **config_dict)
         self._headers: Headers = Headers(partner_token, user_token)
         self._sender: HttpxSender = HttpxSender(self)

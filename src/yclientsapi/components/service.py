@@ -2,6 +2,7 @@ from http import HTTPMethod
 
 import orjson
 
+from yclientsapi.logger import log_call
 from yclientsapi.schema.service import ServiceListResponse, ServiceResponse
 
 
@@ -11,6 +12,7 @@ class Service:
     def __init__(self, api):
         self.__api = api
 
+    @log_call
     def list(
         self,
         category_id: str | int = "",
@@ -37,6 +39,7 @@ class Service:
         )
         return ServiceListResponse(**orjson.loads(response.content))
 
+    @log_call
     def get(
         self,
         service_id: str | int,

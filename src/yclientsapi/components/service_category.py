@@ -3,6 +3,7 @@ from http import HTTPMethod
 
 import orjson
 
+from yclientsapi.logger import log_call
 from yclientsapi.schema.service_category import (
     ServiceCategoryCreateRequest,
     ServiceCategoryCreateResponse,
@@ -18,6 +19,7 @@ class ServiceCategory:
     def __init__(self, api):
         self.__api = api
 
+    @log_call
     def list(
         self,
     ) -> ServiceCategoryListResponse:
@@ -33,6 +35,7 @@ class ServiceCategory:
         )
         return ServiceCategoryListResponse(**orjson.loads(response.content))
 
+    @log_call
     def get(
         self,
         category_id: str | int,
@@ -51,6 +54,7 @@ class ServiceCategory:
         )
         return ServiceCategoryGetResponse(**orjson.loads(response.content))
 
+    @log_call
     def create(
         self,
         service_category: ServiceCategoryCreateRequest,
@@ -70,6 +74,7 @@ class ServiceCategory:
         )
         return ServiceCategoryCreateResponse(**orjson.loads(response.content))
 
+    @log_call
     def update(
         self,
         category_id: str | int,
@@ -92,6 +97,7 @@ class ServiceCategory:
         )
         return ServiceCategoryGetResponse(**orjson.loads(response.content))
 
+    @log_call
     def delete(
         self,
         category_id: str | int,

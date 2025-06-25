@@ -4,6 +4,7 @@ from http import HTTPMethod
 import orjson
 
 from yclientsapi import YclientsAPI
+from yclientsapi.logger import log_call
 from yclientsapi.schema.activity import ActivityDeleteResponse
 from yclientsapi.schema.duplication import (
     ActivityDuplicateResponse,
@@ -19,6 +20,7 @@ class Duplication:
     def __init__(self, api: YclientsAPI):
         self.__api = api
 
+    @log_call
     def list_duplication_strategies(
         self,
     ) -> ActivityDuplicationStrategyResponse:
@@ -33,6 +35,7 @@ class Duplication:
         )
         return ActivityDuplicationStrategyResponse(**orjson.loads(response.content))
 
+    @log_call
     def create_duplication_strategy(
         self, strategy: DuplicationStrategyCreate
     ) -> ActivityDuplicationStrategyCreateResponse:
@@ -52,6 +55,7 @@ class Duplication:
             **orjson.loads(response.content)
         )
 
+    @log_call
     def update_duplication_strategy(
         self, strategy_id: int, strategy: DuplicationStrategyCreate
     ) -> ActivityDuplicationStrategyCreateResponse:
@@ -73,6 +77,7 @@ class Duplication:
             **orjson.loads(response.content)
         )
 
+    @log_call
     def delete_duplication_strategy(self, strategy_id: int) -> ActivityDeleteResponse:
         """Delete a duplication strategy.
         :param strategy_id: ID of the strategy to delete
@@ -87,6 +92,7 @@ class Duplication:
         )
         return ActivityDeleteResponse(**orjson.loads(response.content))
 
+    @log_call
     def duplicate(self, activity_id: int, payload: dict) -> ActivityDuplicateResponse:
         """
         Duplicate an activity using the duplication API endpoint.
