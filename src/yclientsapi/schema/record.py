@@ -53,6 +53,7 @@ class RecordClient:
 @dataclass(config=Config.dataclass_config)
 class RecordLabel:
     id: str
+    title: str
     color: str
     icon: str
     font_color: str
