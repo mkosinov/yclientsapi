@@ -1,12 +1,16 @@
-name: Release
+name: Release on Tag
 
 on:
   push:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+  issues: write
+
 jobs:
-  release-on-tag:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -40,20 +44,31 @@ jobs:
         run: |
           poetry build
 
+      - name: Extract changelog for release
+        id: changelog
+        run: |
+          VERSION=$TAG_VERSION
+          awk "/^##? \[?$VERSION\]?/ {flag=1; next} /^##? / {flag=0} flag" CHANGELOG.md > RELEASE_CHANGELOG.md
+        shell: bash
+
       - name: Publish to PyPI
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
         run: |
           poetry publish --username __token__ --password $POETRY_PYPI_TOKEN_PYPI
 
-      - name: Create GitHub Release
+      - name: Create GitHub Release with changelog
         uses: softprops/action-gh-release@v2
+        with:
+          body_path: RELEASE_CHANGELOG.md
+          tag_name: ${{ github.ref_name }}
 
-      - name: Notify on success && success()
+      - name: Notify on success
+        if: success()
         uses: actions/github-script@v7
         with:
           script: |
-            const tag = 'v${{ github.ref_name }}';
+            const tag = process.env.GITHUB_REF_NAME || process.env.GITHUB_REF.replace('refs/tags/', '');
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -61,11 +76,12 @@ jobs:
               body: `:tada: Release ${tag} published successfully to PyPI!`
             });
 
-      - name: Notify on failure && failure()
+      - name: Notify on failure
+        if: failure()
         uses: actions/github-script@v7
         with:
           script: |
-            const tag = 'v${{ github.ref_name }}';
+            const tag = process.env.GITHUB_REF_NAME || process.env.GITHUB_REF.replace('refs/tags/', '');
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
