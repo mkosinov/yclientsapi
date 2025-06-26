@@ -33,7 +33,6 @@ class Auth:
             json=data,
         )
         result = AuthResponse(**orjson.loads(response.content))
-        # TODO: create Facade to retrive, save and return user_token
         if result.success:
             self.__api._headers.user_token = result.data.user_token
             return result

@@ -4,6 +4,25 @@
 
 ### Active Tasks
 
+#### 2. Webhook Handler Template
+- **Status**: PLANNED
+- **Priority**: MEDIUM
+- **Description**: Implement a reusable template for handling YClients webhooks in Python projects.
+- **Requirements**:
+  - Provide a base handler class or function for processing webhook payloads
+  - Include signature verification (if applicable)
+  - Document how to extend/customize the handler for different webhook types
+  - Example usage in a minimal web framework (e.g., FastAPI, Flask)
+- **Files to create/modify**:
+  - `src/yclientsapi/schema/webhook.py` (define webhook payload schemas)
+  - `src/yclientsapi/webhook_handler.py` (new: handler template and docs)
+  - `docs/` (add usage example)
+- **Implementation steps**:
+  1. Define webhook payload schemas in `schema/webhook.py`
+  2. Create a base handler class/function in `webhook_handler.py`
+  3. Add signature verification logic (if required by YClients)
+  4. Write documentation and example usage
+
 ### Completed Tasks
 
 #### 1. Logging Implementation
