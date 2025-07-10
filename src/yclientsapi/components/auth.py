@@ -24,6 +24,8 @@ class Auth:
         :param password: User's password
         :return: AuthResponse
         """
+        if not login or not password:
+            raise ValueError("Login and password are required")
         url_suffix = "/v1/auth"
         data: dict[str, str] = {"login": login, "password": password}
         response = self.__api._sender.send(
@@ -34,7 +36,7 @@ class Auth:
         )
         result = AuthResponse(**orjson.loads(response.content))
         if result.success:
-            self.__api._headers.user_token = result.data.user_token
+            self.__api._headers._user_token = result.data.user_token
             return result
         else:
             raise YclientsApiResponseError("No user token in response")
