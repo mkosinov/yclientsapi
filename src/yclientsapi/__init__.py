@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 
 from yclientsapi.config import Config
+from yclientsapi.exceptions import YclientsApiResponseError  # noqa: F401
 from yclientsapi.headers import Headers
 from yclientsapi.sender import HttpxSender
 

@@ -23,6 +23,10 @@ class Headers:
 
     @property
     def authorization_partner_user(self) -> Headers_Dict:
+        if not self._user_token:
+            raise ValueError(
+                "User token is not set. Please set it in the YclientsAPI initialization or call later YclientsAPI instance auth.authenticate() method to set it."
+            )
         return {
             "Authorization": f"Bearer {self._partner_token}, User {self._user_token}"
         }

@@ -1,12 +1,16 @@
 import functools
 import inspect
 from collections.abc import Callable
+from typing import TypeVar, cast
+
+F = TypeVar("F", bound=Callable)
 
 
-def log_call(func: Callable) -> Callable:
+def log_call(func: F) -> F:  # noqa: UP047, RUF100
     """
     Decorator to log the calling of API methods using self.__api.logger.
     Logs method name and arguments (excluding self).
+    Preserves the type signature of the decorated function.
     """
 
     @functools.wraps(func)
@@ -24,4 +28,4 @@ def log_call(func: Callable) -> Callable:
             logger.debug(f"Calling {func.__qualname__}({', '.join(args_repr)})")
         return func(self, *args, **kwargs)
 
-    return wrapper
+    return cast("F", wrapper)
