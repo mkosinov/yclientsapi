@@ -6,7 +6,7 @@ from typing import TypeVar, cast
 F = TypeVar("F", bound=Callable)
 
 
-def log_call(func: F) -> F:
+def log_call(func: F) -> F:  # type: ignore
     """
     Decorator to log the calling of API methods using self.__api.logger.
     Logs method name and arguments (excluding self).
