@@ -3,7 +3,7 @@ import inspect
 from collections.abc import Callable
 from typing import TypeVar, cast
 
-F = TypeVar("F", bound=Callable[..., object])
+F = TypeVar("F", bound=Callable)
 
 
 def log_call(func: F) -> F:
