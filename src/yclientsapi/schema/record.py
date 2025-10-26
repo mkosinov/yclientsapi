@@ -34,25 +34,25 @@ class RecordService:
 
 @dataclass(config=Config.dataclass_config)
 class RecordClient:
-    id: int
-    name: str
-    surname: str
-    patronymic: str
-    display_name: str
-    phone: str
-    card: str
-    email: str
-    success_visits_count: int
-    fail_visits_count: int
-    discount: int
-    custom_fields: list[dict]
-    client_tags: list[dict]
-    is_new: bool
+    name: str | None = None
+    phone: str | None = None
+    email: str | None = None
+    id: int | None = None
+    surname: str | None = None
+    patronymic: str | None = None
+    display_name: str | None = None
+    card: str | None = None
+    success_visits_count: int | None = None
+    fail_visits_count: int | None = None
+    discount: int | None = None
+    custom_fields: list[dict] | None = None
+    client_tags: list[dict] | None = None
+    is_new: bool | None = None
 
 
 @dataclass(config=Config.dataclass_config)
 class RecordLabel:
-    id: str
+    id: int
     title: str
     color: str
     icon: str
@@ -120,8 +120,8 @@ class Record:
     activity_id: int
     custom_fields: list[dict]
     documents: list[RecordDocument]
-    sms_remain_hours: int
-    email_remain_hours: int
+    sms_remain_hours: int | None
+    email_remain_hours: int | None
     bookform_id: int
     record_from: str
     is_mobile: int
