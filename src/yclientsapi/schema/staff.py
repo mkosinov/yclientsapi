@@ -127,7 +127,7 @@ class StaffData:
     user: User | None
     is_bookable: bool
     services_links: list[ServiceLink]
-    schedule_till: str
+    schedule_till: str | None = None
     employee: Employee
     chain: Chain | None
     grid_settings: GridSettings
