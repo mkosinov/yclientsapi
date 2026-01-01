@@ -127,12 +127,12 @@ class StaffData:
     user: User | None
     is_bookable: bool
     services_links: list[ServiceLink]
-    schedule_till: str
     employee: Employee
     chain: Chain | None
     grid_settings: GridSettings
     domain: str | None
     google_link: str
+    schedule_till: str | None = None
 
 
 @dataclass(config=Config.dataclass_config)
