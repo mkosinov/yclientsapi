@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.22] - 2026-01-14
+
+### Fixed
+
+- Fixed Pydantic validation error in `StaffData.schedule_till`: field can now be `None` (moved to end of class to satisfy dataclass field ordering requirements)
+- Fixed Pydantic validation error in `ActivityResponse.data.staff.user_id`: field can now be `None` (moved to end of class to satisfy dataclass field ordering requirements)
+
 ## [0.1.6] - 2025-05-30
 
 ### Added

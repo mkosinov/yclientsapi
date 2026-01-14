@@ -53,7 +53,6 @@ class Staff:
     company_id: int
     specialization: str
     api_id: str | None
-    user_id: int
     rating: float
     prepaid: str
     show_rating: int
@@ -62,6 +61,7 @@ class Staff:
     average_score: float
     avatar: str
     avatar_big: str
+    user_id: int | None = None
     position: dict[str, int | str] = field(default_factory=dict)
 
 
