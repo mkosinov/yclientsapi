@@ -45,7 +45,7 @@ class Client:
     success_visits_count: int
     fail_visits_count: int
     discount: int
-    custom_fields: list[dict]  # TODO: add nested schema
+    custom_fields: dict | None = None
     sex: int
     birthday: str
     client_tags: list[dict]  # TODO: add nested schema
@@ -119,7 +119,6 @@ class Webhook:
     custom_font_color: str
     record_labels: list[RecordLabel]
     activity_id: int
-    custom_fields: list[dict]  # TODO: add nested schema
     documents: list[Document]
     sms_remain_hours: int
     email_remain_hours: int
@@ -127,6 +126,7 @@ class Webhook:
     record_from: str
     is_mobile: int
     short_link: str
+    custom_fields: dict | None = None
 
 
 @dataclass(config=Config.dataclass_config)
