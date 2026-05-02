@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "poor_yclientsapi"
-version = "0.1.24"
+version = "0.1.25"
 description = "Poor collection of API methods for Yclients app"
 authors = ["Maksim Kosinov <mkosinov@mail.ru>"]
 license = "MIT"
