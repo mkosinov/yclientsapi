@@ -45,7 +45,7 @@ class RecordClient:
     success_visits_count: int | None = None
     fail_visits_count: int | None = None
     discount: int | None = None
-    custom_fields: dict | None = None
+    custom_fields: dict | list[dict] | None = None
     client_tags: list[dict] | None = None
     is_new: bool | None = None
 
@@ -129,7 +129,7 @@ class Record:
     resource_instance_ids: list[int]
     short_link: str
     acceptance_free: str | None
-    custom_fields: dict | None = None
+    custom_fields: dict | list[dict] | None = None
 
 
 @dataclass(config=Config.dataclass_config)
