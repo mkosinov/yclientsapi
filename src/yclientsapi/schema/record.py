@@ -45,7 +45,7 @@ class RecordClient:
     success_visits_count: int | None = None
     fail_visits_count: int | None = None
     discount: int | None = None
-    custom_fields: list[dict] | None = None
+    custom_fields: dict | None = None
     client_tags: list[dict] | None = None
     is_new: bool | None = None
 
@@ -118,7 +118,6 @@ class Record:
     custom_font_color: str
     record_labels: list[RecordLabel]
     activity_id: int
-    custom_fields: list[dict]
     documents: list[RecordDocument]
     sms_remain_hours: int | None
     email_remain_hours: int | None
@@ -130,6 +129,7 @@ class Record:
     resource_instance_ids: list[int]
     short_link: str
     acceptance_free: str | None
+    custom_fields: dict | None = None
 
 
 @dataclass(config=Config.dataclass_config)
