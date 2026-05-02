@@ -131,7 +131,7 @@ class StaffData:
     chain: Chain | None
     grid_settings: GridSettings
     domain: str | None
-    google_link: str
+    google_link: str | None = None
     schedule_till: str | None = None
 
 
